@@ -2,35 +2,35 @@ const { Schema, model } = require('mongoose')
 
 
 const TransferSchema = new Schema({
-    AccountEmail: {
+    accountEmail: {
         type: String,  
         required: true,
     },
-    Amount: {
+    amount: {
         type: Number,
         required: true,
     },
-    Date: {
+    date: {
         type: Date,
         required: true,
     },
-    Description: {
+    description: {
         type: String,
         required: true,
     },
-    Title: {
+    title: {
         type: String,
         required: true,
     },
-    Type: {
+    type: {
         type: String,
         required: true,
     },
-    Currency: {
+    currency: {
         type: String,
         required: true,
     },
-    Category: {
+    category: {
         type: String,
         required: true,
     }
