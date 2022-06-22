@@ -1,24 +1,24 @@
 const { Router } = require('express')
-const Transfer = require('../../models/transfer.js')
+const Account = require('../models/account.js')
 
 const router = Router()
 
 router.get('/', async (req, res) => {
     try {
-        const transferList = await Transfer.find()
-        if (!transferList) throw new Error('No Transfer List found')
-        res.status(200).json(transferList)
+        const accountList = await Account.find()
+        if (!accountList) throw new Error('No Account List found')
+        res.status(200).json(accountList)
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
 })
 
 router.post('/', async (req, res) => {
-    const newTransfer = new Transfer(req.body)
+    const newAccount = new Account(req.body)
     try {
-        const transfer = await newTransfer.save()
-        if (!transfer) throw new Error('Something went wrong saving the transfer')
-        res.status(200).json(transfer)
+        const account = await newAccount.save()
+        if (!account) throw new Error('Something went wrong saving the account')
+        res.status(200).json(account)
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
 router.delete('/:email', async (req, res) => {
     const { email } = req.params
     try {
-        const removed = await Transfer.findOneAndDelete(email)
+        const removed = await Account.findOneAndDelete(email)
         if (!removed) throw Error('Something went wrong ')
         res.status(200).json(removed)
     } catch (error) {

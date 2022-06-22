@@ -3,8 +3,8 @@ const app = express()
 const mongoose = require('mongoose')
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const AccountsRoutes = require('./routes/api/accounts')
-const TransfersRoutes = require('./routes/api/transfers')
+const AccountsRoutes = require('./routes/accounts')
+const TransfersRoutes = require('./routes/transfers')
 const path = require('path')
 require('dotenv').config();
 
@@ -20,7 +20,7 @@ mongoose
     .then(() => console.log('MongoDB database Connected...'))
     .catch((err) => console.log(err))
 
-app.use('/api/account', AccountsRoutes)
-app.use('/api/transfer', TransfersRoutes)
+app.use('/account', AccountsRoutes)
+app.use('/transfer', TransfersRoutes)
 
 app.listen(process.env.PORT, () => console.log(`App listening at http://localhost:${process.env.PORT}`))

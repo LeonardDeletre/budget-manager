@@ -87,15 +87,15 @@ export default {
     };
   },
   async mounted() {
-    const response = await api().get("api/account/");
+    const response = await api().get("account/");
     this.accounts = response.data;
-    const response2 = await api().get("api/transfer/");
+    const response2 = await api().get("transfer/");
     this.transfers = response2.data;
   },
   methods: {
     async addAccount(e) {
       e.preventDefault();
-      const response = await api().post("api/account/", {
+      const response = await api().post("account/", {
         firstName: this.firstName,
         lastName: this.lastName,
         email: this.email,
@@ -109,12 +109,12 @@ export default {
       this.confirmPassword = "";
     },
     async removeAccount(item, i) {
-      await api().delete("api/account/" + item.email);
+      await api().delete("account/" + item.email);
       this.accounts.splice(i, 1);
     },
     async addTransfer(e) {
       e.preventDefault();
-      const response2 = await api().post("api/transfer/", {
+      const response2 = await api().post("transfer/", {
         accountEmail: this.accountEmail,
         amount: this.amount,
         date : this.date,
@@ -136,7 +136,7 @@ export default {
       this.category="";
     },
     async removeTransfer(item, i) {
-      await api().delete("api/transfer/" + item.accountEmail);
+      await api().delete("transfer/" + item.accountEmail);
       this.transfers.splice(i, 1);
     },
   }
