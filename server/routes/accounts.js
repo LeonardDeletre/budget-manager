@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/register', async (req, res) => {
     const newAccount = new Account(req.body)
     try {
         const account = await newAccount.save()
@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.delete('/:email', async (req, res) => {
+router.delete('/delete/:email', async (req, res) => {
     const { email } = req.params
     try {
         const removed = await Account.findOneAndDelete(email)

@@ -16,6 +16,7 @@
     "axios": "^0.21.1",
     "chart.js": "^2.9.4",
     "core-js": "^3.6.5",
+    "email-validator": "^2.0.4",
     "epic-spinners": "^1.1.0",
     "flag-icon-css": "^3.5.0",
     "font-awesome": "^4.7.0",

@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/add', async (req, res) => {
     const newTransfer = new Transfer(req.body)
     try {
         const transfer = await newTransfer.save()
@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.delete('/:email', async (req, res) => {
+router.delete('/delete/:email', async (req, res) => {
     const { email } = req.params
     try {
         const removed = await Transfer.findOneAndDelete(email)

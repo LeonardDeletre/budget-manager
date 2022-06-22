@@ -95,7 +95,7 @@ export default {
   methods: {
     async addAccount(e) {
       e.preventDefault();
-      const response = await api().post("account/", {
+      const response = await api().post("account/register", {
         firstName: this.firstName,
         lastName: this.lastName,
         email: this.email,
@@ -109,12 +109,12 @@ export default {
       this.confirmPassword = "";
     },
     async removeAccount(item, i) {
-      await api().delete("account/" + item.email);
+      await api().delete("account/delete/" + item.email);
       this.accounts.splice(i, 1);
     },
     async addTransfer(e) {
       e.preventDefault();
-      const response2 = await api().post("transfer/", {
+      const response2 = await api().post("transfer/add", {
         accountEmail: this.accountEmail,
         amount: this.amount,
         date : this.date,
@@ -136,7 +136,7 @@ export default {
       this.category="";
     },
     async removeTransfer(item, i) {
-      await api().delete("transfer/" + item.accountEmail);
+      await api().delete("transfer/delete/" + item.accountEmail);
       this.transfers.splice(i, 1);
     },
   }
