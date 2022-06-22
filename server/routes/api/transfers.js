@@ -14,9 +14,7 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    console.log(req.body);
     const newTransfer = new Transfer(req.body)
-    console.log(newTransfer.email);
     try {
         const transfer = await newTransfer.save()
         if (!transfer) throw new Error('Something went wrong saving the transfer')

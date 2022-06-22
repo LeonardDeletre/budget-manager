@@ -14,9 +14,7 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    console.log(req.body);
     const newAccount = new Account(req.body)
-    console.log(newAccount.email);
     try {
         const account = await newAccount.save()
         if (!account) throw new Error('Something went wrong saving the account')
