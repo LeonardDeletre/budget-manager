@@ -1,7 +1,12 @@
 // const path = require('path')
 // const StylelintPlugin = require('stylelint-webpack-plugin')
+const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin');
+
 
 module.exports = {
+  devServer: {
+    progress: false
+  },
   lintOnSave: true,
   // transpileDependencies: [
   //   'vuestic-ui',
@@ -24,6 +29,11 @@ module.exports = {
   //   },
   // },
   configureWebpack: {
+    plugins: [
+      new SimpleProgressWebpackPlugin({
+        format: 'minimal'
+      })
+    ],
     resolve: {
       alias: {
         // vue$: 'vue/dist/vue.esm.js',
