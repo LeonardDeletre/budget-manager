@@ -1,35 +1,35 @@
 <template>
- <div class="main">
-  <h3>Create Account</h3>
+  <div class="main">
+    <h3>Create Account</h3>
 
-  <form class="form" >
-    <input class="input" v-model="firstName" type="text" name="firstName" placeholder="Enter your first name" />
-    <br/>
-    <input class="input" v-model="lastName" type="text" name="lastName"  placeholder="Enter your last name" />
-    <br/>
-    <input class="input" v-model="email" type="text" name="email"  placeholder="Enter your email" />
-    <br/>
-    <input class="input" v-model="password" type="text" name="password"  placeholder="Enter your password" />
-    <br/>
-    <input class="input" v-model="confirmPassword" type="text" name="confirmPassword"  placeholder="Enter again your password" />
-    <br/>
-    <button class="submit-button" @click="addAccount">Register</button>
-  </form>
-  <div class="account-container">
-    <ul>
-      <li v-for="(account, i) in accounts" :key="account.email">
-        <div class="account">
-        <span class="account-firstName">{{ account.firstName }}</span>
-        <span class="account-lastName">{{ account.lastName }}</span>
-      </div>
-        <button class="delete-btn" @click="removeAccount(account, i)">DELETE account</button>
-      </li>
-    </ul>
+    <form class="form" >
+      <input class="input" v-model="firstName" type="text" name="firstName" placeholder="Enter your first name" />
+      <br/>
+      <input class="input" v-model="lastName" type="text" name="lastName"  placeholder="Enter your last name" />
+      <br/>
+      <input class="input" v-model="email" type="text" name="email"  placeholder="Enter your email" />
+      <br/>
+      <input class="input" v-model="password" type="text" name="password"  placeholder="Enter your password" />
+      <br/>
+      <input class="input" v-model="confirmPassword" type="text" name="confirmPassword"  placeholder="Enter again your password" />
+      <br/>
+      <button class="submit-button" @click="addAccount">Register</button>
+    </form>
+    <div class="account-container">
+      <ul>
+        <li v-for="(account, i) in accounts" :key="account.email">
+          <div class="account">
+            <span class="account-firstName">{{ account.firstName }}</span>
+            <span class="account-lastName">{{ account.lastName }}</span>
+          </div>
+          <button class="delete-btn" @click="removeAccount(account, i)">DELETE account</button>
+        </li>
+      </ul>
+    </div>
   </div>
-  </div>
 
 
-    <form class="form2" >
+  <form class="form2" >
     <input class="input" v-model="accountEmail" type="text" name="accountEmail" placeholder="Enter your email" />
     <br/>
     <input class="input" v-model="amount" type="text" name="amount"  placeholder="Enter an amount" />
@@ -50,13 +50,13 @@
     <br/>
   </form>
 
-<div class="transfer-container">
+  <div class="transfer-container">
     <ul>
       <li v-for="(transfer, i) in transfers" :key="transfer.accountEmail">
         <div class="transfer"> 
-        <span class="transfer-email">{{ transfer.accountEmail }}</span><br/>
-        <span class="transfer-amount">{{ transfer.amount }}</span>
-      </div>
+          <span class="transfer-email">{{ transfer.accountEmail }}</span><br/>
+          <span class="transfer-amount">{{ transfer.amount }}</span>
+        </div>
         <button class="delete-btn" @click="removeTransfer(transfer, i)">DELETE transfer</button>
       </li>
     </ul>
