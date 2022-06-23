@@ -1,5 +1,6 @@
 const { Router } = require('express')
 const Account = require('../models/account.js')
+const sanitize = require('mongo-sanitize')
 
 const router = Router()
 
@@ -20,6 +21,19 @@ router.post('/register', async (req, res) => {
         if (!account) throw new Error('Something went wrong saving the account')
         res.status(200).json(account)
     } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+})
+
+router.post('/login', async (req, res) => {
+    var clean_email = sanitize(req.body.email);
+    var clean_passwd = sanitize(req.body.password);
+    try {
+        const login = await Account.findOne({ email: clean_email, password: clean_passwd}).exec()
+        if (!login) throw new Error('Something went wrong with the login')
+        res.status(200).json(login)
+    }
+    catch (error) {
         res.status(500).json({ message: error.message })
     }
 })

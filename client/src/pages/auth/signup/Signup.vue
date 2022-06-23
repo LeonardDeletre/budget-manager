@@ -130,22 +130,25 @@ export default {
         return
       }
       else{
-        const response = await api().post("account/register", {
-        firstName: this.firstName,
-        lastName: this.lastName,
-        email: this.email,
-        password: this.password,
-        });
-        this.accounts.push(response.data);
-        this.firstName = "";
-        this.lastName = "";
-        this.email = "";
-        this.password = "";
-        this.checkPassword = "";
-        this.$router.push({ name: 'login' });   
+        try{
+          await api().post("account/register", {
+            firstName: this.firstName,
+            lastName: this.lastName,
+            email: this.email,
+            password: this.password,
+          });
+          this.firstName = "";
+          this.lastName = "";
+          this.email = "";
+          this.password = "";
+          this.checkPassword = "";
+          this.$router.push({ name: 'login' });
+        }
+        catch(error){
+          console.log("Register Error")
+        }    
       } 
     },
-    
   },
 
   computed: {
