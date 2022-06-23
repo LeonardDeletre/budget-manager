@@ -169,36 +169,6 @@ export default {
       ],
     },
     {
-      name: 'maps',
-      displayName: 'menu.maps',
-      meta: {
-        icon: 'vuestic-iconset-maps',
-      },
-      disabled: true,
-      children: [
-        {
-          name: 'google-maps',
-          displayName: 'menu.google-maps',
-        },
-        {
-          name: 'yandex-maps',
-          displayName: 'menu.yandex-maps',
-        },
-        {
-          name: 'leaflet-maps',
-          displayName: 'menu.leaflet-maps',
-        },
-        {
-          name: 'bubble-maps',
-          displayName: 'menu.bubble-maps',
-        },
-        {
-          name: 'line-maps',
-          displayName: 'menu.line-maps',
-        },
-      ],
-    },
-    {
       name: 'pages',
       displayName: 'menu.pages',
       meta: {

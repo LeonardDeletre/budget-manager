@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <va-card >
     <va-card-title>
       {{ $t('dashboard.currentVisitors') }}
@@ -60,4 +60,4 @@ export default {
   .dashboard-map {
     height: 380px;
   }
-</style>
+</style> -->

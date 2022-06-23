@@ -51,12 +51,12 @@
 import { getDonutChartData } from '@/data/charts/DonutChartData'
 import { getLineChartData } from '@/data/charts/LineChartData'
 import VaChart from '@/components/va-charts/VaChart.vue'
-import DashboardContributorsChart from './DashboardContributorsList'
+// import DashboardContributorsChart from './DashboardContributorsList'
 import { useGlobalConfig } from 'vuestic-ui'
 
 export default {
   name: 'dashboard-charts',
-  components: { DashboardContributorsChart, VaChart },
+  components: { VaChart },
   data () {
     return {
       lineChartData: null,

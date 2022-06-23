@@ -25,7 +25,7 @@
             </va-card-content>
           </va-card>
         </div>
-        <div class="flex xs12 md6">
+        <!-- <div class="flex xs12 md6">
           <va-card>
             <va-card-content>
               <div class="row row-separated">
@@ -45,11 +45,11 @@
             </va-card-content>
 
           </va-card>
-        </div>
+        </div> -->
       </div>
     </div>
 
-    <div class="flex xs12 md6 xl3">
+    <!-- <div class="flex xs12 md6 xl3">
       <va-card stripe stripe-color="info"> 
         <va-card-title>
           {{ $t('dashboard.info.componentRichTheme') }}
@@ -97,7 +97,7 @@
           <img :src="images[currentImageIndex]" style="height: 50vh; max-width: 100%;">
         </transition>
       </div>
-    </va-modal>
+    </va-modal> -->
   </div>
 </template>
 

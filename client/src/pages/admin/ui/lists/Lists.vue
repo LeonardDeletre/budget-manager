@@ -179,7 +179,7 @@
           </va-list>          
         </va-card>
 
-        <va-card>
+        <!-- <va-card>
           <va-list>
             <va-list-label>
               {{ $t('lists.routerSupport') }}
@@ -215,7 +215,7 @@
               </va-list-item-section>
             </va-list-item>
           </va-list>          
-        </va-card>
+        </va-card> -->
       </div>
     </div>
   </div>
