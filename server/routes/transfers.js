@@ -3,9 +3,10 @@ const Transfer = require('../models/transfer.js')
 
 const router = Router()
 
-router.get('/', async (req, res) => {
+router.get('/:email', async (req, res) => {
     try {
-        const transferList = await Transfer.find()
+        const { email } = req.params
+        const transferList = await Transfer.find({accountEmail : email}).exec()
         if (!transferList) throw new Error('No Transfer List found')
         res.status(200).json(transferList)
     } catch (error) {

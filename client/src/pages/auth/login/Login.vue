@@ -25,7 +25,12 @@
     <div class="d-flex justify--center mt-3">
       <va-button @click="login" class="my-0">{{ $t('auth.login') }}</va-button>
     </div>
+    <br/>
+    <div class="d-flex justify--center mt-3">
+    </div>
   </form>
+
+  
 </template>
 
 <script>
@@ -39,7 +44,6 @@ export default {
       password: '',
       emailErrors: [],
       passwordErrors: [],
-      accounts: [],
     }
   },
   methods: {
@@ -56,7 +60,7 @@ export default {
       }
       this.passwordErrors = this.password ? [] : ['Password is required']
   
-      if (!this.formReady) {
+      if (!this.formReady()) {
         return
       }
       else{
@@ -69,13 +73,11 @@ export default {
           this.password = "";
           this.$router.push({ name: 'dashboard' }); 
         }
-        
         catch(error){
           console.log("Login error");
         }   
       } 
     },
-    
   },
 
   computed: {
