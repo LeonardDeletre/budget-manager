@@ -14,31 +14,10 @@
           </router-link>          
         </div>
       </template>
-      <template v-slot:center>
-        <span class="app-navbar__text">
-          {{$t('navbar.messageUs')}}&nbsp;
-          <a
-            href="mailto:hello@epicmax.co"
-            target="_blank"
-            :style="{color: colors.primary}"
-          >
-            hello@epicmax.co
-          </a>
-          <va-button
-            href="https://github.com/epicmaxco/vuestic-admin"
-            color="#000000"
-            class="app-navbar__github-button"
-            icon="github"
-            target="_blank"
-          >
-            {{$t('navbar.repository')}}
-          </va-button>
-        </span>
-      </template>
       <template #right>
         <app-navbar-actions
           class="app-navbar__actions md5 lg4"
-          :user-name="userName"
+          :user-name="email"
         />
       </template>
     </va-navbar>
@@ -52,14 +31,20 @@ import { computed } from 'vue'
 import VuesticLogo from '@/components/vuestic-logo'
 import VaIconMenuCollapsed from '@/components/icons/VaIconMenuCollapsed'
 import AppNavbarActions from './components/AppNavbarActions'
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   components: { VuesticLogo, AppNavbarActions, VaIconMenuCollapsed },
+  data(){
+    return{
+      email: localStorage.getItem('email')
+    }
+  },
+
   setup() {
     const { getColors } = useColors()
     const colors = computed(() => getColors() )
     const store = useStore()
-
     const isSidebarMinimized = computed({
       get: () => store.state.isSidebarMinimized,
       set: (value) => store.commit('updateSidebarCollapsedState', value)
@@ -72,7 +57,7 @@ export default {
       userName
     }
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

@@ -10,7 +10,7 @@ function colorToRgba(color: string, a: number) {
 }
 
 const generateYLabels = () => {
-  return ['Debit', 'Credit']
+  return ['Expenses', 'Entries']
 }
 
 let generatedData: GeneratedData

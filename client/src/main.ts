@@ -5,9 +5,9 @@ import { createI18n } from 'vue-i18n'
 import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
-import store from './store'
 import vuesticGlobalConfig from './services/vuestic-ui/global-config'
-
+import { store } from './store/store'
+// import { store } from './store/index'
 
 const i18nConfig = {
   locale: 'en',
@@ -22,7 +22,7 @@ const i18nConfig = {
 }
 
 const app = createApp(App)
-app.use(store)
+// app.use(store)
 app.use(router)
 if (process.env.VUE_APP_GTM_ENABLED === 'true') {
   const gtmConfig = {
@@ -34,4 +34,7 @@ if (process.env.VUE_APP_GTM_ENABLED === 'true') {
 }
 app.use(createI18n(i18nConfig))
 app.use(VuesticPlugin, vuesticGlobalConfig)
+app.use(store);
+// app.use(store2);
+
 app.mount('#app')

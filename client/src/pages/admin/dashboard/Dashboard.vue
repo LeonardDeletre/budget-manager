@@ -16,22 +16,25 @@
 <script>
 import DashboardCharts from './DashboardCharts'
 import DashboardInfoBlock from './DashboardInfoBlock'
-// import DashboardTabs from './DashboardTabs'
-// import DashboardMap from './DashboardMap'
+import { getModule } from 'vuex-module-decorators'
+import User from '@/store/modules/auth.module'
 
 export default {
   name: 'dashboard',
+  data(){
+    return{
+      userModule: getModule(User, this.$store),
+    }
+  },
+  mounted(){
+    if(!this.userModule.isLoggedIn){
+      this.$router.push({ name: 'login' }); 
+    }
+  },
   components: {
     DashboardCharts,
     DashboardInfoBlock,
-    // DashboardTabs,
-    // DashboardMap,
   },
-  // methods: {
-  //   addAddressToMap ({ city, country }) {
-  //     this.$refs.dashboardMap.addAddress({ city: city.text, country })
-  //   },
-  // },
 }
 </script>
 

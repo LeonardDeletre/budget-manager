@@ -1,8 +1,8 @@
 <template>
-  <form @submit.prevent="login()">
+  <form @submit.prevent="handleLogin()">
     <va-input
       class="mb-3"
-      v-model="email"
+      v-model="user.email"
       type="email"
       :label="$t('auth.email')"
       :error="!!emailErrors.length"
@@ -11,7 +11,7 @@
 
     <va-input
       class="mb-3"
-      v-model="password"
+      v-model="user.password"
       type="password"
       :label="$t('auth.password')"
       :error="!!passwordErrors.length"
@@ -23,67 +23,87 @@
     </router-link>
 
     <div class="d-flex justify--center mt-3">
-      <va-button @click="login" class="my-0">{{ $t('auth.login') }}</va-button>
+      <va-button @click="handleLogin" class="my-0">{{ $t('auth.login') }}</va-button>
     </div>
-    <br/>
-    <div class="d-flex justify--center mt-3">
-    </div>
+    <br>
+    <div v-if="errorMessage.length>0" class="va-alert" style="background: rgb(228, 34, 34) none repeat scroll 0% 0%; box-shadow: none;"><div style="background-color: rgb(228, 34, 34);" class="va-alert__border-- va-alert__border"></div><div style="color: rgb(255, 255, 255);" class="va-alert__content">{{ errorMessage }}</div></div>
+    <div v-if="successMessage.length>0" class="va-alert" style="background: rgb(34, 200, 34) none repeat scroll 0% 0%; box-shadow: none;"><div style="background-color: rgb(34, 228, 34);" class="va-alert__border-- va-alert__border"></div><div style="color: rgb(255, 255, 255);" class="va-alert__content">{{ successMessage }}</div></div>
   </form>
 
   
 </template>
 
-<script>
-import api from '@/services/api';
+<script lang="ts">
+
 import * as EmailValidator from 'email-validator';
-export default {
+import { defineComponent } from 'vue'
+import { getModule } from 'vuex-module-decorators'
+import User from '@/store/modules/auth.module'
+
+export default defineComponent({
   name: 'login',
-  data () {
+  data(){
     return {
-      email: '',
-      password: '',
-      emailErrors: [],
-      passwordErrors: [],
+      user : { email: '', password: '' },
+      emailErrors: '',
+      passwordErrors: '',
+      loading: false,
+      errorMessage: '',
+      successMessage: '',
+      userModule: getModule(User, this.$store),
+    }
+  },
+  mounted(){
+    if(this.userModule.isLoggedIn){
+      this.$router.push({ name: 'dashboard' }); 
     }
   },
   methods: {
-    async login(e) {
-      e.preventDefault();
-      if(!this.email){
-        this.emailErrors = ['Email is required'];
+    
+    formReady(){
+      return this.emailErrors.length === 0 &&  this.passwordErrors.length === 0
+    },
+    handleLogin() {
+      this.loading = true;
+      
+      if(!this.user.email){
+        this.emailErrors = 'Email is required';
       }
-      else if(!EmailValidator.validate(this.email)){
-        this.emailErrors = ['Email is invalid'];
+      else if(!EmailValidator.validate(this.user.email)){
+        this.emailErrors = 'Email is invalid';
       }
       else{
-        this.emailErrors = [];
+        this.emailErrors = '';
       }
-      this.passwordErrors = this.password ? [] : ['Password is required']
-  
+      this.passwordErrors = this.user.password ? '' : 'Password is required'
+
       if (!this.formReady()) {
+        this.loading = false;
         return
       }
       else{
         try{
-            await api().post("account/login", {
-            email: this.email,
-            password: this.password,
-          });
-          this.email = "";
-          this.password = "";
-          this.$router.push({ name: 'dashboard' }); 
+          this.userModule.login(this.user).then(
+            (data: string) => {
+                this.loading = false;
+                this.errorMessage = '';
+                this.successMessage = data+', you will be redirected to dashboard in a few seconds';
+                // wait 5 seconds and redirect to dashboard
+                setTimeout(() => {
+                  this.$router.push({ name: 'dashboard' }); 
+                }, 5000);
+            },
+            (error: string) => {
+              this.loading = false;
+              this.errorMessage = error;
+            }
+          );
         }
         catch(error){
-          console.log("Login error");
+          console.log("Login error: "+error);
         }   
       } 
-    },
-  },
-
-  computed: {
-    formReady () {
-      return !(this.emailErrors.length || this.passwordErrors.length)
-    },
-  },
-}
+    }
+  }
+})
 </script>

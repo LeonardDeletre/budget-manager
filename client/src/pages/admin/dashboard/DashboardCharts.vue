@@ -43,8 +43,32 @@
     </div>
 
     <div class="flex xs12 md6 xl3">
-      <dashboard-contributors-chart/>
+      <div class="va-card auth-layout__card" style="background-color: rgb(255, 255, 255);"><!--v-if-->
+        <div class="va-card__inner">
+          <br/>
+            <form class="form2" @submit.prevent="addTransfer()">   
+              <div class="va-input-wrapper va-input va-input va-input_labeled va-input_solid mb-3"><!--v-if--><div class="va-input-wrapper__content"><div class="va-input__container" style=""><!--v-if--><div class="va-input__content-wrapper"><div class="va-input__content"><label aria-hidden="true" class="va-input__label" style="color: rgb(21, 78, 193); ">Amount</label><input type="text" v-model="amount" name="amount" placeholder="Enter an amount" tabindex="0" aria-label="Amount" class="va-input__content__input"></div></div><!--v-if--><!--v-if--></div><!--v-if--><div class="va-input-wrapper__message-list-wrapper"><!--v-if--></div></div><!--v-if--></div>
+              <va-date-input style="width:100%" v-model="date" label="Date" bordered/>              
+              <br/>
+              <div class="va-input-wrapper va-input va-input va-input_labeled va-input_solid mb-3"><!--v-if--><div class="va-input-wrapper__content"><div class="va-input__container" style=""><!--v-if--><div class="va-input__content-wrapper"><div class="va-input__content"><label aria-hidden="true" class="va-input__label" style="color: rgb(21, 78, 193);">Description</label><input v-model="description" type="text" name="description"  placeholder="Enter a description" tabindex="0" aria-label="Date" class="va-input__content__input"></div></div><!--v-if--><!--v-if--></div><!--v-if--><div class="va-input-wrapper__message-list-wrapper"><!--v-if--></div></div><!--v-if--></div>
+              <div class="va-input-wrapper va-input va-input va-input_labeled va-input_solid mb-3"><!--v-if--><div class="va-input-wrapper__content"><div class="va-input__container" style=""><!--v-if--><div class="va-input__content-wrapper"><div class="va-input__content"><label aria-hidden="true" class="va-input__label" style="color: rgb(21, 78, 193);">Title</label><input v-model="title" type="text" name="title"  placeholder="Enter a title" tabindex="0" aria-label="Date" class="va-input__content__input"></div></div><!--v-if--><!--v-if--></div><!--v-if--><div class="va-input-wrapper__message-list-wrapper"><!--v-if--></div></div><!--v-if--></div>
+              <va-select label="Type" v-model="type" :options="typeOptions" />
+              <!-- <select name="type" id="type-select" v-model="type">
+                <option value="entry">entry</option>
+                <option value="expense">expense</option>
+              </select> -->
+              <br/>
+              <va-select label="Currency" v-model="currency" :options="currencyOptions" />
+              <br/>
+              <va-select label="Category" v-model="category" :options="categoryOptions" />
+              <br/>
+              <va-button style="width:100%" @click="addTransfer">Add Transfer</va-button>
+            </form>
+        </div>
+      </div> 
+        
     </div>
+    <!-- <my-component ref="childref"></my-component> -->
   </div>
 </template>
 
@@ -53,17 +77,34 @@ import { getDonutChartData } from '@/data/charts/DonutChartData'
 import { getLineChartData } from '@/data/charts/LineChartData'
 import VaChart from '@/components/va-charts/VaChart.vue'
 import { useGlobalConfig } from 'vuestic-ui'
-import api from '@/services/api';
-// import { tsOptionalType } from '@babel/types';
+import { getModule } from 'vuex-module-decorators'
+import Transfer from '@/store/modules/transfer.module'
 
 export default {
   name: 'dashboard-charts',
   components: { VaChart },
   data () {
     return {
+      amount:"",
+      date : new Date(),
+      description:"",
+      title:"",
+      type:"",
+      currency:"",
+      category: "",
+      // typeValue: '',
+      // currencyValue: '',
+      // categoryValue: '',
+      transferModule: getModule(Transfer, this.$store),
+      transfers: {},
+      email: window.localStorage.getItem('email'),
       lineChartData: null,
       donutChartData: null,
       lineChartFirstMonthIndex: 0,
+      value: '',
+      typeOptions: ['expense', 'entry'],
+      currencyOptions: ['Euro', 'Dollar'],
+      categoryOptions: ['Income', 'Rent', 'Transport', 'Food', 'Entertainment', 'Other'],
       data : {
           "type": [],
           "month": [],
@@ -100,35 +141,52 @@ export default {
     },
   },
   methods: {
-
-    async getTransfersByEmail(){
-      try{
-        const res = await api().get("transfer/" + 'a.a@a.fr')
-        return res
+    async addTransfer() {
+      if(this.email){
+        const transfer = {
+          accountEmail: this.email,
+          amount: this.amount,
+          date : this.date,
+          description: this.description,
+          title: this.title,
+          type: this.type,
+          currency: this.currency,
+          category: this.category,
+        }
+        await this.transferModule.addTransferByEmail(transfer).then(() => {
+          window.location.reload()
+          // const a = 1;
+        })
       }
-      catch(error){
-        console.log("getTransfersByEmail Error")
-      }
+      this.amount="";
+      this.date="";
+      this.description="";
+      this.title="";
+      this.type="";
+      this.currency="";
+      this.category="";
     },
-
     async getDataset(){
       try{
-        const res = await this.getTransfersByEmail()
-        // console.log('[DBChart] In getDataset :')
-        res.data.forEach( (item) => {
-          // console.log("in item, type : " + item['type'])
-          // console.log("in item, amount " + item['amount'])
-          // console.log("in item, date " + item['date'])
-          // console.log('-------------------------------')
+        await this.transferModule.getTransfersByEmail(localStorage.getItem('email'))
+        .then(() =>{
+          // console.log('[DBChart] In getDataset :')
+          // console.log('this.transferModule.transfers: '+this.transferModule.transfers)
+          this.transferModule.transfers.forEach( (transfer) => {
+            // console.log("in transfer, type : " + transfer['type'])
+            // console.log("in transfer, amount " + transfer['amount'])
+            // console.log("in transfer, date " + transfer['date'])
+            // console.log('-------------------------------')
 
-          this.data['type'].push(item['type'])
-          this.data['amount'].push(item['amount'])
-         
-          const date = new Date(item['date'])
-          const month = date.getMonth()
-          this.data['month'].push((month))
+            this.data['type'].push(transfer['type'])
+            this.data['amount'].push(transfer['amount'])
+          
+            const date = new Date(transfer['date'])
+            const month = date.getMonth()
+            this.data['month'].push((month))
+           })
         })
-
+      
         // console.log("in getDataset, data : ")
         // for(const index in this.data['type']){
         //   console.log(this.data['type'][index])
@@ -138,7 +196,7 @@ export default {
         // }
       }
       catch(error){
-        console.log("getDataset Error")
+        console.log("getDataset Error: "+error)
       }
     },
 
@@ -238,9 +296,9 @@ export default {
     theme() {
       return useGlobalConfig().getGlobalConfig().colors
     },
-    donutChartDataURL () {
-      return document.querySelector('.chart--donut canvas').toDataURL('image/png')
-    },
+    // donutChartDataURL () {
+    //   return document.querySelector('.chart--donut canvas').toDataURL('image/png')
+    // },
   },
 }
 </script>

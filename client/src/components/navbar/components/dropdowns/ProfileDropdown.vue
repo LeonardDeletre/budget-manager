@@ -24,6 +24,7 @@
         <router-link
           :to="{name: option.redirectTo}"
           class="profile-dropdown__item"
+          v-on:click="userModule.signOut()"
         >
           {{ $t(`user.${option.name}`) }}
         </router-link>          
@@ -34,12 +35,15 @@
 
 <script>
 import { useGlobalConfig } from 'vuestic-ui'
+import User from '@/store/modules/auth.module'
+import { getModule } from 'vuex-module-decorators'
 
 export default {
   name: 'profile-section',
   data () {
     return {
       isShown: false,
+      userModule: getModule(User, this.$store)
     }
   },
   props: {
