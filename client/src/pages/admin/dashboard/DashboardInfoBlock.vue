@@ -118,26 +118,23 @@ export default {
     }
   },
   async mounted(){
-    console.log("Value " + this.infoTiles[1].value)
+    // console.log("Value " + this.infoTiles[1].value)
+    // const res = await this.getTransfersByEmail()
+    // console.log("in DBInfo getTransferByEmail: ")
+    // res.data.forEach((item)=>{
+    //   console.log(item)
+    // })
 
-    const res = await this.getTransfersByEmail()
-    console.log("in DBInfo getTransferByEmail: ")
-    res.data.forEach((item)=>{
-      console.log(item)
-    })
+    // const res = await this.getDatasetExpEnt()
+    // console.log("in DBInfo getdatasetExpEnt: ")
+    // console.log(res)
 
-    console.log("in DBInfo sumExpEnt: ")
     const sum = await this.sumExpEnt()
-    // sum.forEach((item)=>{
-    // console.log("Dict sum:" + item['expenses']+" "+ item.entries)
     console.log(sum)
 
     this.infoTiles[0].value = sum['entries']
     this.infoTiles[1].value = sum['expenses']
     this.infoTiles[2].value = sum['current']
-    
-
-  // })
   },
   methods: {
     async addTransfer(e) {
@@ -177,7 +174,7 @@ export default {
         console.log("getTransfersByEmail Error")
       }
     },
-
+    
     async sumExpEnt(){
     const trSumResp = await api().get("transfer/" + 'a.a@a.fr')
     const result = {
@@ -195,7 +192,7 @@ export default {
 
         result['current'] = result['entries'] - result['expenses']
     })
-    console.log("in sumExpEnt" + result)
+    console.log("[DBInfo] In sumExpEnt : " + result)
     return result
   },
 
