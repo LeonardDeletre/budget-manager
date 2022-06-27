@@ -38,13 +38,13 @@ export const getLineChartData = (themes: ColorThemes, firstMonth: number,  dict:
           label: yLabels[0],
           backgroundColor: colorToRgba(themes.danger, 0.6),
           borderColor: 'transparent',
-          data: dict['expensesAvg']
+          data: dict['expensesSum']
         },
         {
           label: yLabels[1],
           backgroundColor: colorToRgba(themes.info, 0.6),
           borderColor: 'transparent',
-          data: dict['entriesAvg']
+          data: dict['entriesSum']
         },
       ],
     }

@@ -2,7 +2,7 @@ import {instance} from '@/services/api';
 
 class TransferService {
   async getTransfersByEmail(email: string) {
-    console.log("in getTransfersByEmail service: "+email);
+    // console.log("in getTransfersByEmail service: "+email);
     return instance
       .get('transfer/'+email)
       .then(response => {

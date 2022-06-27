@@ -25,15 +25,15 @@
     <div class="flex xs12 md6 xl3">
       <va-card class="d-flex">
         <va-card-title>
-          <h1>{{ $t('dashboard.charts.loadingSpeed') }}</h1>
-          <div class="mr-0 text-right">
+          <!-- <h1>{{ $t('dashboard.charts.loadingSpeed') }}</h1> -->
+          <!-- <div class="mr-0 text-right">
             <va-button
               icon="print"
               flat
               class="mr-0"
               @click="printChart"
             />
-          </div>
+          </div> -->
 
         </va-card-title>
         <va-card-content v-if="donutChartData">
@@ -46,24 +46,24 @@
       <div class="va-card auth-layout__card" style="background-color: rgb(255, 255, 255);"><!--v-if-->
         <div class="va-card__inner">
           <br/>
-            <form class="form2" @submit.prevent="addTransfer()">   
-              <div class="va-input-wrapper va-input va-input va-input_labeled va-input_solid mb-3"><!--v-if--><div class="va-input-wrapper__content"><div class="va-input__container" style=""><!--v-if--><div class="va-input__content-wrapper"><div class="va-input__content"><label aria-hidden="true" class="va-input__label" style="color: rgb(21, 78, 193); ">Amount</label><input type="text" v-model="amount" name="amount" placeholder="Enter an amount" tabindex="0" aria-label="Amount" class="va-input__content__input"></div></div><!--v-if--><!--v-if--></div><!--v-if--><div class="va-input-wrapper__message-list-wrapper"><!--v-if--></div></div><!--v-if--></div>
-              <va-date-input style="width:100%" v-model="date" label="Date" bordered/>              
-              <br/>
-              <div class="va-input-wrapper va-input va-input va-input_labeled va-input_solid mb-3"><!--v-if--><div class="va-input-wrapper__content"><div class="va-input__container" style=""><!--v-if--><div class="va-input__content-wrapper"><div class="va-input__content"><label aria-hidden="true" class="va-input__label" style="color: rgb(21, 78, 193);">Description</label><input v-model="description" type="text" name="description"  placeholder="Enter a description" tabindex="0" aria-label="Date" class="va-input__content__input"></div></div><!--v-if--><!--v-if--></div><!--v-if--><div class="va-input-wrapper__message-list-wrapper"><!--v-if--></div></div><!--v-if--></div>
-              <div class="va-input-wrapper va-input va-input va-input_labeled va-input_solid mb-3"><!--v-if--><div class="va-input-wrapper__content"><div class="va-input__container" style=""><!--v-if--><div class="va-input__content-wrapper"><div class="va-input__content"><label aria-hidden="true" class="va-input__label" style="color: rgb(21, 78, 193);">Title</label><input v-model="title" type="text" name="title"  placeholder="Enter a title" tabindex="0" aria-label="Date" class="va-input__content__input"></div></div><!--v-if--><!--v-if--></div><!--v-if--><div class="va-input-wrapper__message-list-wrapper"><!--v-if--></div></div><!--v-if--></div>
-              <va-select label="Type" v-model="type" :options="typeOptions" />
-              <!-- <select name="type" id="type-select" v-model="type">
-                <option value="entry">entry</option>
-                <option value="expense">expense</option>
-              </select> -->
-              <br/>
-              <va-select label="Currency" v-model="currency" :options="currencyOptions" />
-              <br/>
-              <va-select label="Category" v-model="category" :options="categoryOptions" />
-              <br/>
-              <va-button style="width:100%" @click="addTransfer">Add Transfer</va-button>
-            </form>
+          <form class="form2" @submit.prevent="addTransfer()">   
+            <div class="va-input-wrapper va-input va-input va-input_labeled va-input_solid mb-3"><!--v-if--><div class="va-input-wrapper__content"><div class="va-input__container" style=""><!--v-if--><div class="va-input__content-wrapper"><div class="va-input__content"><label aria-hidden="true" class="va-input__label" style="color: rgb(21, 78, 193); ">Amount</label><input type="text" v-model="amount" name="amount" placeholder="Enter an amount" tabindex="0" aria-label="Amount" class="va-input__content__input"></div></div><!--v-if--><!--v-if--></div><!--v-if--><div class="va-input-wrapper__message-list-wrapper"><!--v-if--></div></div><!--v-if--></div>
+            <va-date-input style="width:100%" v-model="date" label="Date" bordered/>              
+            <br/>
+            <div class="va-input-wrapper va-input va-input va-input_labeled va-input_solid mb-3"><!--v-if--><div class="va-input-wrapper__content"><div class="va-input__container" style=""><!--v-if--><div class="va-input__content-wrapper"><div class="va-input__content"><label aria-hidden="true" class="va-input__label" style="color: rgb(21, 78, 193);">Description</label><input v-model="description" type="text" name="description"  placeholder="Enter a description" tabindex="0" aria-label="Date" class="va-input__content__input"></div></div><!--v-if--><!--v-if--></div><!--v-if--><div class="va-input-wrapper__message-list-wrapper"><!--v-if--></div></div><!--v-if--></div>
+            <div class="va-input-wrapper va-input va-input va-input_labeled va-input_solid mb-3"><!--v-if--><div class="va-input-wrapper__content"><div class="va-input__container" style=""><!--v-if--><div class="va-input__content-wrapper"><div class="va-input__content"><label aria-hidden="true" class="va-input__label" style="color: rgb(21, 78, 193);">Title</label><input v-model="title" type="text" name="title"  placeholder="Enter a title" tabindex="0" aria-label="Date" class="va-input__content__input"></div></div><!--v-if--><!--v-if--></div><!--v-if--><div class="va-input-wrapper__message-list-wrapper"><!--v-if--></div></div><!--v-if--></div>
+            <va-select label="Type" v-model="type" :options="typeOptions" />
+            <!-- <select name="type" id="type-select" v-model="type">
+              <option value="entry">entry</option>
+              <option value="expense">expense</option>
+            </select> -->
+            <br/>
+            <va-select label="Currency" v-model="currency" :options="currencyOptions" />
+            <br/>
+            <va-select label="Category" v-model="category" :options="categoryOptions" />
+            <br/>
+            <va-button style="width:100%" @click="addTransfer">Add Transfer</va-button>
+          </form>
         </div>
       </div> 
         
@@ -87,6 +87,7 @@ export default {
     return {
       amount:"",
       date : new Date(),
+      today: new Date(),
       description:"",
       title:"",
       type:"",
@@ -104,24 +105,33 @@ export default {
       value: '',
       typeOptions: ['expense', 'entry'],
       currencyOptions: ['Euro', 'Dollar'],
-      categoryOptions: ['Income', 'Rent', 'Transport', 'Food', 'Entertainment', 'Other'],
+      categoryOptions: ['Salary', 'Rent', 'Transport', 'Food', 'Entertainment', 'Other'],
       data : {
           "type": [],
           "month": [],
+          "year": [],
           "amount": []
       },
-      dataAvg  : {
-          "expensesAvg" : [0,0,0,0,0,0,0,0,0,0,0,0],
-          "entriesAvg" : [0,0,0,0,0,0,0,0,0,0,0,0]
-      }
+      dataSum  : {
+          "expensesSum" : [0,0,0,0,0,0,0,0,0,0,0,0],
+          "entriesSum" : [0,0,0,0,0,0,0,0,0,0,0,0]
+      },
+      dataDonut : [0,0,0,0,0]
+
+      
     }
   },
   async mounted() {
-    // console.log('In DBChart')
-    await this.getDatasetAvgMonth()
+    // console.log('In DBChart') 
+    this.today = new Date()
+    // console.log('[DBCharts] Today : ' + this.today)
+    // console.log('[DBCharts] Year of today : ' + this.today.getFullYear())
+
+    await this.getDatasetSumPerMonth()
+    await this.getExpCategory()
     // console.log(this.data)
-    this.lineChartData = getLineChartData(this.theme, this.lineChartFirstMonthIndex, this.dataAvg)
-    // this.donutChartData = getDonutChartData(this.theme)
+    this.lineChartData = getLineChartData(this.theme, this.lineChartFirstMonthIndex, this.dataSum)
+    this.donutChartData = getDonutChartData(this.theme, this.dataDonut)
     
    
   },
@@ -183,9 +193,16 @@ export default {
           
             const date = new Date(transfer['date'])
             const month = date.getMonth()
+            const year = date.getFullYear()
             this.data['month'].push((month))
+            this.data['year'].push((year))
            })
+           
+          
+           
         })
+
+        
       
         // console.log("in getDataset, data : ")
         // for(const index in this.data['type']){
@@ -200,30 +217,33 @@ export default {
       }
     },
 
-    async getDatasetAvgMonth(){
+    async getDatasetSumPerMonth(){
       try{
         // console.log('[DBChart] In getDatasetAvgMonth :')
         const totalExp = [0,0,0,0,0,0,0,0,0,0,0,0]
         const totalEnt = [0,0,0,0,0,0,0,0,0,0,0,0] // at index i, contains the number of entries of the month i
         let i = 0
         let j = 0
+        
+
         await this.getDataset()
         for(j=0; j<this.data['type'].length; j++){
           // console.log('----------------------------------')
           // console.log("this.data['type']["+j+"]" + this.data['type'][j])
           // console.log("this.data['amount']["+j+"]" + this.data['amount'][j])
           // console.log("this.data['month']["+j+"]" + this.data['month'][j])
+          // console.log('[getDataset] List of Years : ' + this.data['year'])
 
           if(this.data['type'][j] === "expense"){
             // console.log('in expense case')
             for(i=0; i<12; i++){
               // console.log('i : '+ i + "   this.data['month']["+j+"]" + this.data['month'][j])
-                if(this.data['month'][j] === i){
+                if(this.data['month'][j] === i && this.data['year'][j] === this.today.getFullYear()){
                   // console.log('i and month OK')
                   totalExp[i] += 1 // +1 expenses in the month i
                   // console.log('totalExp[' + i + '] : ' + totalExp[i])
                   // console.log("this.data['amount'][" + j + ']' + this.data['amount'][j])
-                  this.dataAvg['expensesAvg'][i] += this.data['amount'][j]  // sum of expenses of the same month i
+                  this.dataSum['expensesSum'][i] += this.data['amount'][j]  // sum of expenses of the same month i
                   // console.log("this.dataAvg['expensesAvg'][" + i + ']' + this.dataAvg['expensesAvg'][i])
                   break
                 }
@@ -234,12 +254,12 @@ export default {
             // console.log('in entry case')
             for(i=0; i<12; i++){
               // console.log('i : ' + i + "   this.data['month']["+j+"]" + this.data['month'][j])
-                if(this.data['month'][j] === i){
+                if(this.data['month'][j] === i && this.data['year'][j] === this.today.getFullYear()){
                   // console.log('i and month OK')
                   totalEnt[i] += 1 // +1 expenses in the month i
                   // console.log('totalEnt[' + i + '] : '+ totalEnt[i])
                   // console.log("this.data['amount'][" + j + ']' + this.data['amount'][j])
-                  this.dataAvg['entriesAvg'][i] += this.data['amount'][j]  // sum of entries of the same month i
+                  this.dataSum['entriesSum'][i] += this.data['amount'][j]  // sum of entries of the same month i
                   // console.log("this.dataAvg['entriesAvg'][" + i + ']' + this.dataAvg['entriesAvg'][i])
                   break
                 }
@@ -249,19 +269,19 @@ export default {
         }
         //Average calculus
         // console.log('-----AVG Calculus------')
-          for(i=0; i<12;i++){
-            if(totalExp[i] !== null){
-              this.dataAvg['expensesAvg'][i] = Math.round(this.dataAvg['expensesAvg'][i] / totalExp[i])
-              // console.log("this.dataAvg['expensesAvg'][" + i + ']' + this.dataAvg['expensesAvg'][i])
-            }
-          }
+          // for(i=0; i<12;i++){
+          //   if(totalExp[i] !== null){
+          //     this.dataAvg['expensesAvg'][i] = Math.round(this.dataAvg['expensesAvg'][i] / totalExp[i])
+          //     // console.log("this.dataAvg['expensesAvg'][" + i + ']' + this.dataAvg['expensesAvg'][i])
+          //   }
+          // }
 
-          for(i=0; i<12;i++){
-            if(totalEnt[i] !== null){
-              this.dataAvg['entriesAvg'][i] = Math.round(this.dataAvg['entriesAvg'][i] / totalEnt[i])
-              // console.log("this.dataAvg['entriesAvg'][" + i + ']' + this.dataAvg['entriesAvg'][i])
-            }
-          }
+          // for(i=0; i<12;i++){
+          //   if(totalEnt[i] !== null){
+          //     this.dataAvg['entriesAvg'][i] = Math.round(this.dataAvg['entriesAvg'][i] / totalEnt[i])
+          //     // console.log("this.dataAvg['entriesAvg'][" + i + ']' + this.dataAvg['entriesAvg'][i])
+          //   }
+          // }
 
         // console.log('-----------------------------')
         // console.log("in getDatasetAvg, dataAvg : ")
@@ -272,6 +292,58 @@ export default {
       }
       catch(error){
         console.log("getDatasetAvgMonth Error")
+      }
+    },
+
+    async getExpCategory(){
+      try{
+        await this.transferModule.getTransfersByEmail(localStorage.getItem('email'))
+        .then(() =>{
+          // console.log('[DBChart] In getExpCategory :')
+          // console.log('this.transferModule.transfers: '+this.transferModule.transfers)
+          this.transferModule.transfers.forEach( (transfer) => {
+            // console.log("in transfer, type : " + transfer['type'])
+            // console.log("in transfer, date : " + transfer['date'])
+            // console.log("in transfer, amount " + transfer['amount'])
+            // console.log("in transfer, category " + transfer['category'])
+            // console.log('-------------------------------')
+
+            const d = new Date(transfer['date'])
+
+          
+            // console.log('----------------------------------')
+            // console.log("this.data['type']["+j+"]" + this.data['type'][j])
+            // console.log("this.data['amount']["+j+"]" + this.data['amount'][j])
+            // console.log("this.data['month']["+j+"]" + this.data['month'][j])
+            // console.log('[getDataset] List of Years : ' + this.data['year'])
+
+            if(transfer['type'] === "expense"){
+              // console.log('in expense case')
+                // console.log('i : '+ i + "   this.data['month']["+j+"]" + this.data['month'][j])
+              if(d.getMonth() === this.today.getMonth() && d.getFullYear() === this.today.getFullYear()){
+                if(transfer['category'] === "Rent"){
+                  this.dataDonut[0] += transfer['amount']
+                }
+                else if(transfer['category'] === "Transport"){
+                  this.dataDonut[1] += transfer['amount']
+                }
+                else if(transfer['category'] === "Food"){
+                  this.dataDonut[2] += transfer['amount']
+                }
+                else if(transfer['category'] === "Entertainment"){
+                  this.dataDonut[3] += transfer['amount']
+                }
+                else if(transfer['category'] === "Other"){
+                  this.dataDonut[4] += transfer['amount']
+                }
+              }
+              
+            }
+          })   
+        })
+      }
+      catch(error){
+        console.log("getExpCategory Error")
       }
     },
 

@@ -16,16 +16,74 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="flex xs12 md6">
-          <va-card>
+      <va-card :title="$t('tables.stripedHoverable')">
+        <va-card-content>
+          <div class="table-wrapper">
+            <table class="va-table va-table--striped va-table--hoverable">
+              <thead>
+                <tr>
+                  <th>Amount</th>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Title</th>
+                  <th>Type</th>
+                  <th>Category</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr v-for="transfer in transferModule.transfers" :key="transfer.lastName">
+                  <td>{{ transfer.amount }}€</td>
+                  <td>{{ ''+new Date(transfer.date).getDate() + '/'+(new Date(transfer.date).getMonth()+1)+'/'+ new Date(transfer.date).getFullYear()}}</td>
+                  <td>{{ transfer.description }}</td>
+                  <td>{{ transfer.title }}</td>
+                  <td>{{ transfer.type }}</td>
+                  <td>{{ transfer.category }}</td>
+                </tr>
+              </tbody>
+            </table>          
+          </div>
+        </va-card-content>
+      </va-card>
+      <!-- <va-card>
+        <va-card-content>
+          <va-card :title="$t('tables.basic')" class="flex mb-4">
             <va-card-content>
-              <p class="display-2 mb-1" :style="{color: theme.primary}">Goal</p>
-              <p class="no-wrap">{{$t('200€/month maximum')}}</p>              
+              <div class="table-wrapper">
+                <table class="va-table">
+                  <thead>
+                    <tr>
+                      <th>Amount</th>
+                      <th>Date</th>
+                      <th>Description</th>
+                      <th>Title</th>
+                      <th>Type</th>
+                      <th>Category</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr v-for="transfer in transferModule.transfers" :key="transfer.lastName">
+                      <td>{{ transfer.amount }}€</td>
+                      <td>{{ ''+new Date(transfer.date).getDate() + '/'+(new Date(transfer.date).getMonth()+1)+'/'+ new Date(transfer.date).getFullYear()}}</td>
+                      <td>{{ transfer.description }}</td>
+                      <td>{{ transfer.title }}</td>
+                      <td>{{ transfer.type }}</td>
+                      <td>{{ transfer.category }}</td>
+                    </tr>
+                  </tbody>
+                </table>                
+              </div>
             </va-card-content>
           </va-card>
+          
+        </va-card-content>
+      </va-card> -->
+      <!-- <div class="row">
+        <div class="flex xs12 md6">
+          
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 
@@ -42,8 +100,10 @@ export default defineComponent({
   name: 'DashboardInfoBlock',
   data () {
     return {
+      data: [],
+      today: new Date(),
       transferModule: getModule(Transfer, this.$store),
-      transfers: {},
+      items: {},
       email: window.localStorage.getItem('email'),
       infoTiles: [{
         color: 'success',
@@ -62,23 +122,30 @@ export default defineComponent({
         icon: '',
       }],
     }
+    
   },
   async mounted(){
-    await this.getTransfers();
+    this.today = new Date()
+    // console.log('[DBInfoBlock] Today : ' + this.today)
+    // console.log('[DBInfoBlock] Month of today : ' + this.today.getMonth())
+    // console.log('[DBInfoBlock] Year of today : ' + this.today.getFullYear())
+    await this.getTransfers()
+   
   },
   methods: {
     async getTransfers(){
       if(this.email){
         await this.transferModule.getTransfersByEmail(this.email)
-        console.log("this.transferModule.transfers: "+this.transferModule.transfers)
+        this.items = this.transferModule.transfers
+        // console.log("this.transferModule.transfers: " + this.transferModule.transfers)
         const sum = this.transfersSum(this.transferModule.transfers)
-        console.log('sum: '+sum)
+        // console.log('sum: ' + sum)
         this.infoTiles[0].value = sum['entries'].toString()
         this.infoTiles[1].value = sum['expenses'].toString()
         this.infoTiles[2].value = sum['current'].toString()
-        console.log('this.infoTiles[0].value: '+this.infoTiles[0].value)
-        console.log('this.infoTiles[1].value: '+this.infoTiles[1].value)
-        console.log('this.infoTiles[2].value: '+this.infoTiles[2].value)
+        // console.log('this.infoTiles[0].value: '+this.infoTiles[0].value)
+        // console.log('this.infoTiles[1].value: '+this.infoTiles[1].value)
+        // console.log('this.infoTiles[2].value: '+this.infoTiles[2].value)
       }
     },
   
@@ -89,20 +156,42 @@ export default defineComponent({
         "current" : 0
       }
       transfers.forEach( (transfer: any) => {
-        console.log('transfer: '+transfer)
-        if(transfer['type'] === "expense"){
-          result['expenses'] += transfer['amount']
-        }
-        else if(transfer['type'] === "entry"){
-          result['entries'] += transfer['amount']
-        }
+        // console.log('----------------------[transfersSum]------------------')
+        const d = new Date(transfer['date'])
+        // console.log('transfer: ' + transfer)
+        // console.log("transfer['date'].getMonth() : " + d.getMonth())
+        // console.log("transfer['date'].getFullYear() : " + d.getFullYear())
+        // console.log("this.today.getMonth() : " + this.today.getMonth())
+        // console.log("this.today.getFullYear() : " + this.today.getFullYear())
 
-        result['current'] = result['entries'] - result['expenses']
+        if(d.getMonth() === this.today.getMonth() && d.getFullYear() === this.today.getFullYear()){
+          if(transfer['type'] === "expense") {
+          result['expenses'] += transfer['amount']
+          }
+          else if(transfer['type'] === "entry"){
+            result['entries'] += transfer['amount']
+          }
+
+          result['current'] = result['entries'] - result['expenses']
+        }
+        
       })
       return result
     },
   },
   computed: {
+    fields () {
+      return [{
+        name: 'fullName',
+        title: this.$t('tables.headings.name'),
+      }, {
+        name: 'email',
+        title: this.$t('tables.headings.email'),
+      }, {
+        name: 'country',
+        title: this.$t('tables.headings.country'),
+      }]
+    },
     theme() {
       return useGlobalConfig().getGlobalConfig().colors || {}
     }

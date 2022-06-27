@@ -3,16 +3,16 @@ let generatedData: {
   datasets: {label: string; backgroundColor: string[]; data: number[]}[];
 }
 
-export const getDonutChartData = (themes: ColorThemes) => {
+export const getDonutChartData = (themes: ColorThemes, list: number[]) => {
   if (generatedData) {
-    generatedData.datasets[0].backgroundColor = [themes.danger, themes.info, themes.primary]
+    generatedData.datasets[0].backgroundColor = [themes.danger, themes.info, themes.primary, themes.success, themes.warning]
   } else {
     generatedData = {
-      labels: ['North America', 'South America', 'Australia'],
+      labels: ['Rent', 'Transport', 'Food', 'Entertainment', 'Other'],
       datasets: [{
-        label: 'Population (millions)',
-        backgroundColor: [themes.danger, themes.info, themes.primary],
-        data: [2478, 5267, 734],
+        label: 'Dépenses du mois selon les catégories',
+        backgroundColor: [themes.danger, themes.info, themes.primary, themes.success, themes.warning],
+        data: list,
       }],
     }
   }
