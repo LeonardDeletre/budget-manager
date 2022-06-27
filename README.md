@@ -20,6 +20,29 @@ Be in the server folder
 npm run dev (it will start both server and client)  
 Go to http://localhost:8080
 
+## Features 
+
+Account creation and authentication  
+Recording of cash inflows and outflows  
+Visualize this data through graphs, tables and text  
+
+## Security
+
+Login's/register's forms are sanitized  
+Users' passwords are encrypted in DB  
+
+## Possible improvements
+
+Using HTTPS to mitigate man-in-the-middle attack  
+Transactions encryption in DB  
+Transactions' forms checking alike login's/register's forms  
+Solve dependencies vulnerabilities  
+Be able to create incomplete transactions -> Modify transactions' informations later on  
+Fill in savings objectives  
+More charts  
+ 
+
+
 ## Credits
 
 Thanks to Sai Deepesh for his MEVN stack tutorial (https://signoz.io/blog/mevn-stack-tutorial/)  
