@@ -11,6 +11,23 @@ export default {
         icon: 'vuestic-iconset-dashboard',
       },
     },
+    {
+      name: 'login',
+      displayName: 'menu.login',
+      meta: {
+        icon: 'vuestic-iconset-files',
+      },
+    },
+        // {
+        //   name: '404-pages',
+        //   displayName: 'menu.404-pages',
+        // },
+        // {
+        //   name: 'faq',
+        //   displayName: 'menu.faq',
+        // },
+    //   ],
+    // },
     // {
     //   name: 'statistics',
     //   displayName: 'menu.statistics',
@@ -168,27 +185,29 @@ export default {
     //     },
     //   ],
     // },
-    {
-      name: 'pages',
-      displayName: 'menu.pages',
-      meta: {
-        icon: 'vuestic-iconset-files',
-      },
-      disabled: true,
-      children: [
-        {
-          name: 'login',
-          displayName: 'menu.login-singup',
-        },
-        // {
-        //   name: '404-pages',
-        //   displayName: 'menu.404-pages',
-        // },
-        // {
-        //   name: 'faq',
-        //   displayName: 'menu.faq',
-        // },
-      ],
-    },
+    // {
+    //   name: 'pages',
+    //   displayName: 'menu.pages',
+    //   meta: {
+    //     icon: 'vuestic-iconset-files',
+    //   },
+    //   disabled: true,
+    //   children: [
+    //     {
+    //       name: 'login',
+    //       displayName: 'menu.login-singup',
+    //     },
+    //     {
+    //       name: '404-pages',
+    //       displayName: 'menu.404-pages',
+    //     },
+    //     {
+    //       name: 'faq',
+    //       displayName: 'menu.faq',
+    //     },
+    //   ],
+    // },
+
   ],
+
 }

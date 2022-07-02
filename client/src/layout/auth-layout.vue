@@ -1,9 +1,9 @@
 <template>
   <div class="auth-layout row align-content--center">
     <div class="flex xs12 pa-3 flex-center">
-      <router-link class="py-5 flex-center" to="/">
+      <!-- <router-link class="py-5 flex-center" to="/">
         <vuestic-logo height="32"/>
-      </router-link>
+      </router-link> -->
     </div>
 
     <div class="flex xs12 pa-3">
@@ -30,11 +30,11 @@
 </template>
 
 <script>
-import VuesticLogo from "@/components/vuestic-logo";
+// import VuesticLogo from "@/components/vuestic-logo";
 
 export default {
   name: "AuthLayout",
-  components: { VuesticLogo },
+  // components: { VuesticLogo },
   data() {
     return {
       selectedTabIndex: 0

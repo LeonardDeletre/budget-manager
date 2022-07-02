@@ -9,9 +9,9 @@
             class="va-navbar__item"
             :color="colors.primary"
           />
-          <router-link to="/">
+          <!-- <router-link to="/">
             <vuestic-logo class="logo"/>
-          </router-link>          
+          </router-link>           -->
         </div>
       </template>
       <template #right>
@@ -28,13 +28,13 @@
 import { useColors } from 'vuestic-ui'
 import { useStore } from 'vuex'
 import { computed } from 'vue'
-import VuesticLogo from '@/components/vuestic-logo'
+// import VuesticLogo from '@/components/vuestic-logo'
 import VaIconMenuCollapsed from '@/components/icons/VaIconMenuCollapsed'
 import AppNavbarActions from './components/AppNavbarActions'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  components: { VuesticLogo, AppNavbarActions, VaIconMenuCollapsed },
+  components: { AppNavbarActions, VaIconMenuCollapsed },
   data(){
     return{
       email: localStorage.getItem('email')
