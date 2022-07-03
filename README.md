@@ -34,17 +34,21 @@ Users' passwords are encrypted in DB
 ## Possible improvements
 
 Using HTTPS to mitigate man-in-the-middle attack  
+Add Unit Tests  
 Transactions encryption in DB  
+Reorganize code structure  
+Add login's/register's forms' length verification  
 Transactions' forms checking alike login's/register's forms  
 Solve dependencies vulnerabilities  
 Be able to create incomplete transactions -> Modify transactions' informations later on  
 Fill in savings objectives  
-More charts  
+More and better charts  
  
-
 
 ## Credits
 
-Thanks to Sai Deepesh for his MEVN stack tutorial (https://signoz.io/blog/mevn-stack-tutorial/)  
+Thanks to Sai Deepesh for his/her MEVN stack tutorial (https://signoz.io/blog/mevn-stack-tutorial/)  
 
-Thanks to Epicmax for their Vue Admin template (https://github.com/epicmaxco/vuestic-admin)
+Thanks to Epicmax for their Vue Admin template (https://github.com/epicmaxco/vuestic-admin)  
+
+Thanks to BezKoder for his/her tutorials on user authentication & authorization with JWT and RefreshToken (https://www.bezkoder.com/node-js-mongodb-auth-jwt/)  
