@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <va-dropdown
     class="notification-dropdown"
     position="bottom"
@@ -160,4 +160,4 @@ export default {
     display: inline-block;
   }
 }
-</style>
+</style> -->

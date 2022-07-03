@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <va-dropdown
     class="message-dropdown"
     position="bottom"
@@ -146,4 +146,4 @@ export default {
     display: inline-block;
   }
 }
-</style>
+</style> -->

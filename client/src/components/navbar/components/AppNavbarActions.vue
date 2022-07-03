@@ -1,8 +1,8 @@
 <template>
   <div class="app-navbar-actions">
     <color-dropdown class="app-navbar-actions__item"/>
-    <message-dropdown class="app-navbar-actions__item"/>
-    <notification-dropdown class="app-navbar-actions__item"/>
+    <!-- <message-dropdown class="app-navbar-actions__item"/> -->
+    <!-- <notification-dropdown class="app-navbar-actions__item"/> -->
     <!-- <settings-dropdown class="app-navbar-actions__item" /> -->
     <language-dropdown class="app-navbar-actions__item"/>
     <profile-dropdown class="app-navbar-actions__item app-navbar-actions__item--profile">
@@ -14,8 +14,8 @@
 <script>
 import LanguageDropdown from './dropdowns/LanguageDropdown'
 import ProfileDropdown from './dropdowns/ProfileDropdown'
-import NotificationDropdown from './dropdowns/NotificationDropdown'
-import MessageDropdown from './dropdowns/MessageDropdown'
+// import NotificationDropdown from './dropdowns/NotificationDropdown'
+// import MessageDropdown from './dropdowns/MessageDropdown'
 import ColorDropdown from './dropdowns/color-dropdown/ColorDropdown'
 
 export default {
@@ -23,8 +23,8 @@ export default {
 
   components: {
     ColorDropdown,
-    MessageDropdown,
-    NotificationDropdown,
+    // MessageDropdown,
+    // NotificationDropdown,
     LanguageDropdown,
     ProfileDropdown,
   },
