@@ -43,6 +43,7 @@ Solve dependencies vulnerabilities
 Be able to create incomplete transactions -> Modify transactions' informations later on  
 Fill in savings objectives  
 More and better charts  
+Add translations  
  
 
 ## Credits
