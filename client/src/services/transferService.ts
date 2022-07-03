@@ -2,15 +2,12 @@ import {instance} from '@/services/api';
 
 class TransferService {
   async getTransfersByEmail(email: string) {
-    // console.log("in getTransfersByEmail service: "+email);
     return instance
       .get('transfer/'+email)
       .then(response => {
-        // console.log("in getTransfersByEmail service success: "+email);
         return response;
       },
       error => {
-        // console.log("in getTransfersByEmail service failed: "+error);
         return error;
       });
   }
@@ -27,15 +24,12 @@ class TransferService {
       category: string; 
     } ) 
     {
-    // console.log("in addTransferByEmail service");
     return instance
     .post('transfer/add', transfer)
     .then(response => {
-      // console.log("add successfull")
       return response;
     },
     error => {
-      // console.log("add failed: "+error)
       return error;
     });
   }

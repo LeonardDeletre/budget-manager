@@ -25,12 +25,13 @@ class AuthService {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         localStorage.removeItem('email');
+        instance.defaults.headers.common["x-access-token"] = ''
         return response.data;
       },
       error => {
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        localStorage.removeItem('email');
+        // localStorage.removeItem('accessToken');
+        // localStorage.removeItem('refreshToken');
+        // localStorage.removeItem('email');
         return error
       }
         );

@@ -72,7 +72,7 @@ router.post('/refreshToken', async (req, res) => {
             RefreshToken.findByIdAndRemove(refreshToken._id, { useFindAndModify: false }).exec();
             
             res.status(403).json({
-                message: "Refresh token was expired. Please make a new signin request",
+                message: "Refresh token is expired. Please make a new signin request",
             });
             return;
         }

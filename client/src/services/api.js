@@ -31,7 +31,6 @@ export function refreshToken() {
           error.message ||
           error.toString();
     if(message.includes("new signin request")) {
-      // console.log("in new signin request")
       window.localStorage.removeItem("accessToken");
       window.localStorage.removeItem("refreshToken");
       window.localStorage.removeItem("email");

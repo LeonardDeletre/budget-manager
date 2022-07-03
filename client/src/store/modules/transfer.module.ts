@@ -41,10 +41,8 @@ class Transfer extends VuexModule {
       currency: string; 
       category: string; 
     }): Promise<any> {
-    // console.log("in addTransferByEmail module");
     return TransferService.addTransferByEmail(transfer).then(
-      response => {
-        // this.context.commit('setTransfers', response.data);
+      () => {
         return Promise.resolve("Successfully added transfer");
       },
       (error: any) => {

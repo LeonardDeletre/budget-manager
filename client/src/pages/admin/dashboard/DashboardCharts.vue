@@ -53,10 +53,6 @@
             <div class="va-input-wrapper va-input va-input va-input_labeled va-input_solid mb-3"><!--v-if--><div class="va-input-wrapper__content"><div class="va-input__container" style=""><!--v-if--><div class="va-input__content-wrapper"><div class="va-input__content"><label aria-hidden="true" class="va-input__label" style="color: rgb(21, 78, 193);">Description</label><input v-model="description" type="text" name="description"  placeholder="Enter a description" tabindex="0" aria-label="Date" class="va-input__content__input"></div></div><!--v-if--><!--v-if--></div><!--v-if--><div class="va-input-wrapper__message-list-wrapper"><!--v-if--></div></div><!--v-if--></div>
             <div class="va-input-wrapper va-input va-input va-input_labeled va-input_solid mb-3"><!--v-if--><div class="va-input-wrapper__content"><div class="va-input__container" style=""><!--v-if--><div class="va-input__content-wrapper"><div class="va-input__content"><label aria-hidden="true" class="va-input__label" style="color: rgb(21, 78, 193);">Title</label><input v-model="title" type="text" name="title"  placeholder="Enter a title" tabindex="0" aria-label="Date" class="va-input__content__input"></div></div><!--v-if--><!--v-if--></div><!--v-if--><div class="va-input-wrapper__message-list-wrapper"><!--v-if--></div></div><!--v-if--></div>
             <va-select label="Type" v-model="type" :options="typeOptions" />
-            <!-- <select name="type" id="type-select" v-model="type">
-              <option value="entry">entry</option>
-              <option value="expense">expense</option>
-            </select> -->
             <br/>
             <va-select label="Currency" v-model="currency" :options="currencyOptions" />
             <br/>
@@ -66,9 +62,7 @@
           </form>
         </div>
       </div> 
-        
     </div>
-    <!-- <my-component ref="childref"></my-component> -->
   </div>
 </template>
 
@@ -93,11 +87,7 @@ export default {
       type:"",
       currency:"",
       category: "",
-      // typeValue: '',
-      // currencyValue: '',
-      // categoryValue: '',
       transferModule: getModule(Transfer, this.$store),
-      transfers: {},
       email: window.localStorage.getItem('email'),
       lineChartData: null,
       donutChartData: null,
@@ -122,34 +112,27 @@ export default {
     }
   },
   async mounted() {
-    // console.log('In DBChart') 
     this.today = new Date()
-    // console.log('[DBCharts] Today : ' + this.today)
-    // console.log('[DBCharts] Year of today : ' + this.today.getFullYear())
-
     await this.getDatasetSumPerMonth()
     await this.getExpCategory()
-    // console.log(this.data)
     this.lineChartData = getLineChartData(this.theme, this.lineChartFirstMonthIndex, this.dataSum)
     this.donutChartData = getDonutChartData(this.theme, this.dataDonut)
-    
-   
   },
-  watch: {
-    '$themes.primary' () {
-      this.lineChartData = getLineChartData(this.theme)
-      this.donutChartData = getDonutChartData(this.theme)
-    },
+  // watch: {
+  //   '$themes.primary' () {
+  //     this.lineChartData = getLineChartData(this.theme, this.lineChartFirstMonthIndex, this.dataSum)
+  //     this.donutChartData = getDonutChartData(this.theme, this.dataDonut)
+  //   },
 
-    '$themes.info' () {
-      this.lineChartData = getLineChartData(this.theme)
-      this.donutChartData = getDonutChartData(this.theme)
-    },
+  //   '$themes.info' () {
+  //     this.lineChartData = getLineChartData(this.theme, this.lineChartFirstMonthIndex, this.dataSum)
+  //     this.donutChartData = getDonutChartData(this.theme, this.dataDonut)
+  //   },
 
-    '$themes.danger' () {
-      this.donutChartData = getDonutChartData(this.theme)
-    },
-  },
+  //   '$themes.danger' () {
+  //     this.donutChartData = getDonutChartData(this.theme, this.dataDonut)
+  //   },
+  // },
   methods: {
     async addTransfer() {
       if(this.email){
@@ -165,7 +148,6 @@ export default {
         }
         await this.transferModule.addTransferByEmail(transfer).then(() => {
           window.location.reload()
-          // const a = 1;
         })
       }
       this.amount="";
@@ -180,118 +162,52 @@ export default {
       try{
         await this.transferModule.getTransfersByEmail(localStorage.getItem('email'))
         .then(() =>{
-          // console.log('[DBChart] In getDataset :')
-          // console.log('this.transferModule.transfers: '+this.transferModule.transfers)
           this.transferModule.transfers.forEach( (transfer) => {
-            // console.log("in transfer, type : " + transfer['type'])
-            // console.log("in transfer, amount " + transfer['amount'])
-            // console.log("in transfer, date " + transfer['date'])
-            // console.log('-------------------------------')
-
             this.data['type'].push(transfer['type'])
             this.data['amount'].push(transfer['amount'])
-          
             const date = new Date(transfer['date'])
             const month = date.getMonth()
             const year = date.getFullYear()
             this.data['month'].push((month))
             this.data['year'].push((year))
            })
-           
-          
-           
         })
-
-        
-      
-        // console.log("in getDataset, data : ")
-        // for(const index in this.data['type']){
-        //   console.log(this.data['type'][index])
-        //   console.log(this.data['amount'][index])
-        //   console.log(this.data['month'][index])
-        //   console.log('-------------------------------')
-        // }
       }
       catch(error){
-        console.log("getDataset Error: "+error)
+        console.log("getDataset error: "+error)
       }
     },
 
     async getDatasetSumPerMonth(){
       try{
-        // console.log('[DBChart] In getDatasetAvgMonth :')
         const totalExp = [0,0,0,0,0,0,0,0,0,0,0,0]
         const totalEnt = [0,0,0,0,0,0,0,0,0,0,0,0] // at index i, contains the number of entries of the month i
         let i = 0
         let j = 0
-        
-
         await this.getDataset()
         for(j=0; j<this.data['type'].length; j++){
-          // console.log('----------------------------------')
-          // console.log("this.data['type']["+j+"]" + this.data['type'][j])
-          // console.log("this.data['amount']["+j+"]" + this.data['amount'][j])
-          // console.log("this.data['month']["+j+"]" + this.data['month'][j])
-          // console.log('[getDataset] List of Years : ' + this.data['year'])
-
           if(this.data['type'][j] === "expense"){
-            // console.log('in expense case')
             for(i=0; i<12; i++){
-              // console.log('i : '+ i + "   this.data['month']["+j+"]" + this.data['month'][j])
                 if(this.data['month'][j] === i && this.data['year'][j] === this.today.getFullYear()){
-                  // console.log('i and month OK')
                   totalExp[i] += 1 // +1 expenses in the month i
-                  // console.log('totalExp[' + i + '] : ' + totalExp[i])
-                  // console.log("this.data['amount'][" + j + ']' + this.data['amount'][j])
                   this.dataSum['expensesSum'][i] += this.data['amount'][j]  // sum of expenses of the same month i
-                  // console.log("this.dataAvg['expensesAvg'][" + i + ']' + this.dataAvg['expensesAvg'][i])
                   break
                 }
             }
           }
-
           else if(this.data['type'][j] === "entry"){
-            // console.log('in entry case')
             for(i=0; i<12; i++){
-              // console.log('i : ' + i + "   this.data['month']["+j+"]" + this.data['month'][j])
                 if(this.data['month'][j] === i && this.data['year'][j] === this.today.getFullYear()){
-                  // console.log('i and month OK')
                   totalEnt[i] += 1 // +1 expenses in the month i
-                  // console.log('totalEnt[' + i + '] : '+ totalEnt[i])
-                  // console.log("this.data['amount'][" + j + ']' + this.data['amount'][j])
                   this.dataSum['entriesSum'][i] += this.data['amount'][j]  // sum of entries of the same month i
-                  // console.log("this.dataAvg['entriesAvg'][" + i + ']' + this.dataAvg['entriesAvg'][i])
                   break
                 }
             }
           }
-          
         }
-        //Average calculus
-        // console.log('-----AVG Calculus------')
-          // for(i=0; i<12;i++){
-          //   if(totalExp[i] !== null){
-          //     this.dataAvg['expensesAvg'][i] = Math.round(this.dataAvg['expensesAvg'][i] / totalExp[i])
-          //     // console.log("this.dataAvg['expensesAvg'][" + i + ']' + this.dataAvg['expensesAvg'][i])
-          //   }
-          // }
-
-          // for(i=0; i<12;i++){
-          //   if(totalEnt[i] !== null){
-          //     this.dataAvg['entriesAvg'][i] = Math.round(this.dataAvg['entriesAvg'][i] / totalEnt[i])
-          //     // console.log("this.dataAvg['entriesAvg'][" + i + ']' + this.dataAvg['entriesAvg'][i])
-          //   }
-          // }
-
-        // console.log('-----------------------------')
-        // console.log("in getDatasetAvg, dataAvg : ")
-        // for(const key in this.dataAvg){
-        //   console.log(this.dataAvg[key])
-        // }
-        
       }
       catch(error){
-        console.log("getDatasetAvgMonth Error")
+        console.log("getDatasetAvgMonth error: "+error)
       }
     },
 
@@ -299,27 +215,9 @@ export default {
       try{
         await this.transferModule.getTransfersByEmail(localStorage.getItem('email'))
         .then(() =>{
-          // console.log('[DBChart] In getExpCategory :')
-          // console.log('this.transferModule.transfers: '+this.transferModule.transfers)
           this.transferModule.transfers.forEach( (transfer) => {
-            // console.log("in transfer, type : " + transfer['type'])
-            // console.log("in transfer, date : " + transfer['date'])
-            // console.log("in transfer, amount " + transfer['amount'])
-            // console.log("in transfer, category " + transfer['category'])
-            // console.log('-------------------------------')
-
             const d = new Date(transfer['date'])
-
-          
-            // console.log('----------------------------------')
-            // console.log("this.data['type']["+j+"]" + this.data['type'][j])
-            // console.log("this.data['amount']["+j+"]" + this.data['amount'][j])
-            // console.log("this.data['month']["+j+"]" + this.data['month'][j])
-            // console.log('[getDataset] List of Years : ' + this.data['year'])
-
             if(transfer['type'] === "expense"){
-              // console.log('in expense case')
-                // console.log('i : '+ i + "   this.data['month']["+j+"]" + this.data['month'][j])
               if(d.getMonth() === this.today.getMonth() && d.getFullYear() === this.today.getFullYear()){
                 if(transfer['category'] === "Rent"){
                   this.dataDonut[0] += transfer['amount']
@@ -337,13 +235,12 @@ export default {
                   this.dataDonut[4] += transfer['amount']
                 }
               }
-              
             }
           })   
         })
       }
       catch(error){
-        console.log("getExpCategory Error")
+        console.log("getExpCategory error: "+error)
       }
     },
 
